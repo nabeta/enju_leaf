@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_01_02_162311) do
+ActiveRecord::Schema.define(version: 2019_06_30_151446) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer "basket_id"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "carrier_types", force: :cascade do |t|
@@ -450,19 +451,9 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.string "isil"
     t.float "latitude"
     t.float "longitude"
+    t.json "display_name_translations", default: {}, null: false
     t.index ["library_group_id"], name: "index_libraries_on_library_group_id"
     t.index ["name"], name: "index_libraries_on_name"
-  end
-
-  create_table "library_group_translations", force: :cascade do |t|
-    t.integer "library_group_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "login_banner"
-    t.text "footer_banner"
-    t.index ["library_group_id"], name: "index_library_group_translations_on_library_group_id"
-    t.index ["locale"], name: "index_library_group_translations_on_locale"
   end
 
   create_table "library_groups", force: :cascade do |t|
@@ -487,7 +478,14 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "pub_year_facet_range_interval", default: 10
     t.integer "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false
+    t.string "header_logo_file_name"
+    t.string "header_logo_content_type"
+    t.integer "header_logo_file_size"
+    t.datetime "header_logo_updated_at"
     t.text "header_logo_meta"
+    t.json "display_name_translations", default: {}, null: false
+    t.json "login_banner_translations", default: {}, null: false
+    t.json "footer_banner_translations", default: {}, null: false
     t.index ["short_name"], name: "index_library_groups_on_short_name"
     t.index ["user_id"], name: "index_library_groups_on_user_id"
   end
@@ -721,6 +719,8 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.boolean "save_search_history"
     t.text "full_name_transcription"
     t.datetime "date_of_birth"
+    t.index ["library_id"], name: "index_profiles_on_library_id"
+    t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
@@ -752,6 +752,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "request_types", force: :cascade do |t|
@@ -761,6 +762,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "resource_export_file_transitions", force: :cascade do |t|
@@ -841,6 +843,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.datetime "updated_at"
     t.integer "score", default: 0, null: false
     t.integer "position"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "search_engines", force: :cascade do |t|
@@ -855,6 +858,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "search_histories", force: :cascade do |t|
@@ -951,6 +955,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.boolean "closed", default: false, null: false
+    t.json "display_name_translations", default: {}, null: false
     t.index ["library_id"], name: "index_shelves_on_library_id"
   end
 
@@ -1014,8 +1019,9 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "user_export_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "most_recent"
+    t.boolean "most_recent", null: false
     t.index ["sort_key", "user_export_file_id"], name: "index_user_export_file_transitions_on_sort_key_and_file_id", unique: true
+    t.index ["user_export_file_id", "most_recent"], name: "index_user_export_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["user_export_file_id"], name: "index_user_export_file_transitions_on_file_id"
     t.index ["user_export_file_id"], name: "index_user_export_file_transitions_on_user_export_file_id"
   end
@@ -1045,6 +1051,7 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "number_of_day_to_notify_overdue", default: 1, null: false
     t.integer "number_of_day_to_notify_due_date", default: 7, null: false
     t.integer "number_of_time_to_notify_overdue", default: 3, null: false
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "user_has_roles", force: :cascade do |t|
@@ -1063,8 +1070,9 @@ ActiveRecord::Schema.define(version: 2018_01_02_162311) do
     t.integer "user_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "most_recent"
+    t.boolean "most_recent", null: false
     t.index ["sort_key", "user_import_file_id"], name: "index_user_import_file_transitions_on_sort_key_and_file_id", unique: true
+    t.index ["user_import_file_id", "most_recent"], name: "index_user_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["user_import_file_id"], name: "index_user_import_file_transitions_on_user_import_file_id"
   end
 
