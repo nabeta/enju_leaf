@@ -18,4 +18,6 @@ gem 'rails', '~> 5.2'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
+  gem 'webdrivers'
+  gem 'sassc-rails'
 end
