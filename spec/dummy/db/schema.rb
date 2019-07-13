@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_30_151446) do
+ActiveRecord::Schema.define(version: 2019_07_12_163038) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer "basket_id"
@@ -30,7 +30,8 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "agent_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "most_recent"
+    t.boolean "most_recent", null: false
+    t.index ["agent_import_file_id", "most_recent"], name: "index_agent_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
     t.index ["sort_key", "agent_import_file_id"], name: "index_agent_import_file_transitions_on_sort_key_and_file_id", unique: true
   end
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "agent_relationships", force: :cascade do |t|
@@ -106,6 +108,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "agents", force: :cascade do |t|
@@ -203,6 +206,11 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.bigint "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "circulation_statuses", force: :cascade do |t|
@@ -231,6 +239,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -254,6 +263,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "creates", force: :cascade do |t|
@@ -327,6 +337,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "frequencies", force: :cascade do |t|
@@ -336,6 +347,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "identifier_types", force: :cascade do |t|
@@ -366,7 +378,8 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "import_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "most_recent"
+    t.boolean "most_recent", null: false
+    t.index ["import_request_id", "most_recent"], name: "index_import_request_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
     t.index ["sort_key", "import_request_id"], name: "index_import_request_transitions_on_sort_key_and_request_id", unique: true
   end
@@ -420,6 +433,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.string "iso_639_3"
     t.text "note"
     t.integer "position"
+    t.json "display_name_translations", default: {}, null: false
     t.index ["iso_639_1"], name: "index_languages_on_iso_639_1"
     t.index ["iso_639_2"], name: "index_languages_on_iso_639_2"
     t.index ["iso_639_3"], name: "index_languages_on_iso_639_3"
@@ -497,6 +511,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "manifestation_relationship_types", force: :cascade do |t|
@@ -506,6 +521,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "manifestation_relationships", force: :cascade do |t|
@@ -551,6 +567,10 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "required_score", default: 0, null: false
     t.integer "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.integer "attachment_file_size"
+    t.datetime "attachment_updated_at"
     t.text "title_alternative_transcription"
     t.text "description"
     t.text "abstract"
@@ -567,6 +587,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.string "ndc"
     t.integer "content_type_id", default: 1
     t.integer "year_of_publication"
+    t.text "attachment_meta"
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
     t.boolean "serial"
@@ -587,6 +608,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "message_request_transitions", force: :cascade do |t|
@@ -690,6 +712,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "produces", force: :cascade do |t|
@@ -732,6 +755,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json "display_name_translations", default: {}, null: false
   end
 
   create_table "realizes", force: :cascade do |t|
@@ -772,7 +796,8 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "resource_export_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "most_recent"
+    t.boolean "most_recent", null: false
+    t.index ["resource_export_file_id", "most_recent"], name: "index_resource_export_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
     t.index ["sort_key", "resource_export_file_id"], name: "index_resource_export_file_transitions_on_sort_key_and_file_id", unique: true
   end
@@ -781,7 +806,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "user_id"
     t.string "resource_export_file_name"
     t.string "resource_export_content_type"
-    t.integer "resource_export_file_size"
+    t.bigint "resource_export_file_size"
     t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
@@ -795,7 +820,8 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "resource_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "most_recent"
+    t.boolean "most_recent", null: false
+    t.index ["resource_import_file_id", "most_recent"], name: "index_resource_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
     t.index ["sort_key", "resource_import_file_id"], name: "index_resource_import_file_transitions_on_sort_key_and_file_id", unique: true
   end
@@ -1030,7 +1056,7 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.integer "user_id"
     t.string "user_export_file_name"
     t.string "user_export_content_type"
-    t.integer "user_export_file_size"
+    t.bigint "user_export_file_size"
     t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
