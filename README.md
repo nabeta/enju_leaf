@@ -35,4 +35,3 @@ library system maintained by Japanese volunteers interested in libraries.
 ## 製作者・貢献者 (Authors and contributors)
 * [TANABE, Kosuke](https://github.com/nabeta) ([@nabeta](https://twitter.com/nabeta))
 * [Project Next-L](https://www.next-l.jp) ([@ProjectNextL](https://twitter.com/ProjectNextL))
-

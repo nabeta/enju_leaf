@@ -21,9 +21,9 @@ gem 'enju_library', github: 'next-l/enju_library', branch: '2.x'
 gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '2.x'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer', branch: '2.x'
 gem 'paper_trail'
+gem 'sassc-rails'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
   gem 'webdrivers'
-  gem 'sassc-rails'
 end
