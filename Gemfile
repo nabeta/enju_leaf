@@ -16,6 +16,7 @@ gemspec
 gem 'paper_trail'
 gem 'sassc-rails'
 gem 'rails-i18n'
+gem 'sprockets', '~> 3.7'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
