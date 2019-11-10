@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2019_07_12_163038) do
 
-  create_table "accepts", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "accepts", id: :serial, force: :cascade do |t|
     t.integer "basket_id"
     t.integer "item_id"
     t.integer "librarian_id"
