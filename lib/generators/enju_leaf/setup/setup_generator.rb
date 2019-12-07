@@ -55,27 +55,9 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    generate("friendly_id")
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
       ""
-    gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
-    inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
-      <<"EOS"
-  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
-  end
-
-  as :user do
-    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-    put 'users' => 'devise/registrations#update', as: 'user_registration'
-  end
-EOS
-    end
-    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
-    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
-    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
-
     gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
 
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
@@ -91,8 +73,6 @@ EOS
 
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
-//= require jquery/dist/jquery
-//= require jquery-migrate/dist/jquery-migrate
 //= require enju_leaf/application
 EOS
     end
