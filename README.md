@@ -1,5 +1,5 @@
 # Next-L Enju Leaf
-![](https://github.com/next-l/enju_leaf/workflows/Ruby/badge.svg?branch=2.x)
+[![CircleCI](https://circleci.com/gh/next-l/enju_leaf/tree/2.x.svg?style=svg)](https://circleci.com/gh/next-l/enju_leaf/tree/2.x)
 [![Coverage Status](https://coveralls.io/repos/github/next-l/enju_leaf/badge.svg?branch=2.x)](https://coveralls.io/github/next-l/enju_leaf?branch=2.x)
 
 Next-L Enju Leaf は、[Project Next-L](https://www.next-l.jp) で開発している図書館管理システムです。
