@@ -21,6 +21,12 @@ end
 #Library.reindex
 #Shelf.reindex
 
+
+UserGroup.order(created_at: :desc).first.update!(
+  number_of_day_to_notify_overdue: 7,
+  number_of_day_to_notify_due_date: 3
+)
+
 system_user = User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
