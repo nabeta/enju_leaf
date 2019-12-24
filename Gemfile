@@ -17,6 +17,7 @@ gem 'enju_seed', "~> 0.4.0.beta.2"
 gem 'enju_library', github: 'next-l/enju_library', branch: '2.x'
 gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '2.x'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer', branch: '2.x'
+gem 'rails', '~> 5.2.4'
 gem 'paper_trail'
 gem 'sassc-rails'
 gem 'rails-i18n'
@@ -26,7 +27,3 @@ group :test do
   gem 'rspec_junit_formatter'
   gem 'webdrivers'
 end
-
-gem 'enju_library', github: 'next-l/enju_library', branch: '2.x'
-gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '2.x'
-gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer', branch: '2.x'
