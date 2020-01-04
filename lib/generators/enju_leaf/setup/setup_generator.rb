@@ -35,8 +35,6 @@ EOS
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
-    generate("devise:install")
-    generate("devise", "User")
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
@@ -65,8 +63,8 @@ EOS
 
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
-//= require enju_leaf
 //= require jquery2
+//= require enju_leaf
 EOS
     end
     inject_into_file "app/assets/stylesheets/application.css", after: / *= require_self$\n/ do
