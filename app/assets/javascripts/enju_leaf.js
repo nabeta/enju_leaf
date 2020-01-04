@@ -1,5 +1,5 @@
 //= require jquery.ui.all
-//= require jquery-colorbox/jquery.colorbox
+//= require jquery.colorbox
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
@@ -7,6 +7,6 @@
 //= require select_locale
 //= require portlets
 //= require menu
-//= require jquery-powertip/dist/jquery.powertip
+//= require jquery.powertip
 //= require cocoon
 //= require autocomplete_agent
