@@ -1,3 +1,3 @@
 module EnjuLeaf
-  VERSION = "2.0.0.rc.1".version
+  VERSION = "2.0.0.rc.1".freeze
 end
