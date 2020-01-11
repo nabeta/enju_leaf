@@ -7,7 +7,7 @@ class CreateItems < ActiveRecord::Migration[4.2]
       t.datetime :deleted_at
       t.integer :shelf_id, default: 1, null: false
       t.boolean :include_supplements, default: false, null: false
-      t.text :note
+      t.text :note, comment: '備考'
       t.string :url
       t.integer :price
       t.integer :lock_version, default: 0, null: false

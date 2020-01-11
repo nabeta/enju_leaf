@@ -5,7 +5,7 @@ class CreateResourceImportFiles < ActiveRecord::Migration[4.2]
       t.string :content_type
       t.integer :size
       t.integer :user_id
-      t.text :note
+      t.text :note, comment: '備考'
       t.datetime :executed_at
       t.string :resource_import_file_name
       t.string :resource_import_content_type

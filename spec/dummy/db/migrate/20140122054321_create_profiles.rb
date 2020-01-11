@@ -7,7 +7,7 @@ class CreateProfiles < ActiveRecord::Migration[4.2]
       t.string :locale
       t.string :user_number
       t.text :full_name
-      t.text :note
+      t.text :note, comment: '備考'
       t.text :keyword_list
       t.references :required_role, index: false
 

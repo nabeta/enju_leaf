@@ -24,7 +24,7 @@ class CreateManifestations < ActiveRecord::Migration[4.2]
       t.string :issue_number_string
       t.string :serial_number_string
       t.integer :edition
-      t.text :note
+      t.text :note, comment: '備考'
       t.boolean :repository_content, default: false, null: false
       t.integer :lock_version, default: 0, null: false
       t.integer :required_role_id, default: 1, null: false

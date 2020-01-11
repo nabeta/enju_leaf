@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[4.2]
       t.integer :library_id, default: 1, null: false
       t.integer :event_category_id, default: 1, null: false
       t.string :name
-      t.text :note
+      t.text :note, comment: '備考'
       t.datetime :start_at
       t.datetime :end_at
       t.boolean :all_day, default: false, null: false
