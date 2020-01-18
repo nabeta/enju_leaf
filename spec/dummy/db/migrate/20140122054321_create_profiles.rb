@@ -1,4 +1,4 @@
-class CreateProfiles < ActiveRecord::Migration[4.2]
+class CreateProfiles < ActiveRecord::Migration[5.2]
   def change
     create_table :profiles do |t|
       t.references :user, index: true, foreign_key: true
@@ -7,7 +7,7 @@ class CreateProfiles < ActiveRecord::Migration[4.2]
       t.string :locale
       t.string :user_number
       t.text :full_name
-      t.text :note, comment: '備考'
+      t.text :note
       t.text :keyword_list
       t.references :required_role, index: false
 
