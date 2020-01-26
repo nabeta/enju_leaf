@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_library", "~> 0.4.0.rc.1"
   s.add_dependency "enju_biblio", "~> 0.4.0.rc.1"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
-  s.add_dependency 'sprockets', '~> 3.7'
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.4.0.rc.1"
   s.add_development_dependency "pg"
