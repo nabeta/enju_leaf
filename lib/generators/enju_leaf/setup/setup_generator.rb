@@ -6,7 +6,11 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    remove_file "config/webpack/environment.js"
+    copy_file("config/webpack/environment.js", "config/webpack/environment.js")
     append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
+    append_to_file("app/assets/config/manifest.js", "//= link enju_leaf_manifest.js")
+    append_to_file("app/assets/config/manifest.js", "//= link enju_event_manifest.js")
     inject_into_class 'config/application.rb', 'Application' do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
@@ -31,13 +35,13 @@ EOS
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
   include Pundit
-  before_action :set_paper_trail_whodunnit
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
+    rake("sitemap:install")
     generate("geocoder:config")
     gsub_file "config/sunspot.yml",
       /path: \/solr\/production/,
@@ -45,9 +49,6 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    gsub_file "app/assets/javascripts/application.js",
-      /\/\/= require turbolinks$/,
-      ""
     gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
 
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
@@ -61,14 +62,16 @@ EOS
 EOS
     end
 
+    remove_file "app/javascript/packs/application.js"
+    copy_file("../../../../../app/javascript/packs/application.js", "#{Rails.root.to_s}/app/javascript/packs/application.js")
+    directory("../../../../../app/javascript/src", "app/javascript/src")
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
-//= require jquery2
-//= require enju_leaf
+//= require enju_leaf/application
 EOS
     end
     inject_into_file "app/assets/stylesheets/application.css", after: / *= require_self$\n/ do
-      " *= require enju_leaf\n"
+      " *= require enju_leaf/application\n"
     end
     inject_into_file "config.ru", after: /require_relative 'config\/environment'$\n/ do
       <<"EOS"
@@ -87,5 +90,7 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
+    remove_file "public/favicon.ico"
+    copy_file("../../../../../app/assets/images/enju_leaf/favicon.ico", "#{Rails.root.to_s}/public/favicon.ico")
   end
 end
