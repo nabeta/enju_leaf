@@ -13,6 +13,8 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+gem 'rails', '~> 5.2.4'
+gem 'paper_trail'
 gem 'sassc-rails'
 gem 'rails-i18n'
 gem 'webpacker'
@@ -21,7 +23,3 @@ group :test do
   gem 'rspec_junit_formatter'
   gem 'webdrivers'
 end
-
-gem 'enju_seed', github: 'next-l/enju_seed', branch: '2.x'
-gem 'enju_library', github: 'next-l/enju_library', branch: '2.x'
-gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '2.x'

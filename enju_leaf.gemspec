@@ -14,25 +14,27 @@ Gem::Specification.new do |s|
   s.description = "integrated library system"
   s.license     = "MIT"
 
-  s.required_ruby_version = ">= 2.4"
+  s.required_ruby_version = ">= 2.3"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"]
 
+  s.add_dependency "rails", "~> 5.2"
   s.add_dependency "enju_library", "~> 0.4.0.rc.1"
   s.add_dependency "enju_biblio", "~> 0.4.0.rc.1"
+  s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.4.0.rc.1"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 4.0"
-  s.add_development_dependency "vcr", "~> 5.1"
+  s.add_development_dependency "rspec-rails", "~> 3.9"
+  s.add_development_dependency "vcr", "~> 5.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "sunspot_matchers"
   s.add_development_dependency "rspec-activemodel-mocks"
   s.add_development_dependency "resque"
   s.add_development_dependency "capybara"
-  s.add_development_dependency "coveralls", '~> 0.8.23'
+  s.add_development_dependency "coveralls"
   s.add_development_dependency "selenium-webdriver"
   s.add_development_dependency "puma"
   s.add_development_dependency "annotate"
