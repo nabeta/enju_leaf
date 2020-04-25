@@ -38,5 +38,5 @@ addons:
 jdk:
   - openjdk8
 node_js:
-  - stable
+  - 10
 dist: xenial
