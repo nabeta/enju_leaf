@@ -14,11 +14,12 @@ Gem::Specification.new do |s|
   s.description = "integrated library system"
   s.license     = "MIT"
 
-  s.required_ruby_version = ">= 2.3"
+  s.required_ruby_version = ">= 2.5"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"]
 
+  s.add_dependency "rails", "~> 6.0.3"
   s.add_dependency "enju_library", "~> 0.4.0.rc.1"
   s.add_dependency "enju_biblio", "~> 0.4.0.rc.1"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
